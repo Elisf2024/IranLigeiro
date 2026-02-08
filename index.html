@@ -41,6 +41,11 @@
             color: #ffffff;
         }
         
+        /* 3. Controle de scroll via classe (compatível com iOS) */
+        body.menu-open {
+            overflow: hidden;
+        }
+        
         .banner {
             position: relative;
             overflow: hidden;
@@ -676,9 +681,50 @@
         
         /* ========== OTIMIZAÇÕES PARA MOBILE ========== */
         @media (max-width: 768px) {
-            /* Banner Principal */
+            /* 1. Corrigir altura do banner - evita corte e scroll incorreto no mobile */
             .banner {
-                padding-top: 80px; /* Aumenta espaço do topo para não sobrepor menu */
+                min-height: calc(100svh - 80px);
+                padding-top: 80px;
+            }
+            
+            /* 2. Ajustar vídeos de background - evita sobreposição no mobile */
+            .video-background {
+                object-position: center;
+            }
+            
+            /* 4. Tooltips visíveis no mobile - hover não existe em touch */
+            .tooltip .tooltip-text {
+                visibility: visible;
+                opacity: 1;
+                position: static;
+                transform: none;
+                margin-top: 8px;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                background-color: rgba(255, 107, 0, 0.1);
+                padding: 8px 12px;
+                border-radius: 6px;
+            }
+            
+            .tooltip .tooltip-text::after {
+                display: none;
+            }
+            
+            /* 7. Reduzir alturas fixas excessivas - melhor proporção mobile */
+            .highlight-image-container,
+            .testimonial-image-container,
+            .team-image-container {
+                height: 220px;
+            }
+            
+            /* 8. Melhorar scroll horizontal - snap suave no mobile */
+            .highlights-container {
+                scroll-snap-type: x mandatory;
+            }
+            
+            .highlight-card {
+                scroll-snap-align: center;
             }
             
             .banner h1 {
@@ -753,17 +799,6 @@
             /* Cards do método */
             .method-card {
                 margin-bottom: 1.5rem;
-            }
-            
-            /* Destaques na corrida - scroll horizontal suave */
-            .highlights-container {
-                scroll-snap-type: x mandatory;
-                gap: 1rem;
-            }
-            
-            .highlight-card {
-                scroll-snap-align: center;
-                min-width: 280px;
             }
             
             /* Cronograma semanal - compacto */
@@ -1531,13 +1566,14 @@
                     </div>
                 </div>
                 
-                <button id="prev-btn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-orange-burnt rounded-full p-2 text-white">
+                <!-- 6. Ocultar botões no mobile - conflitam com swipe -->
+                <button id="prev-btn" class="hidden md:block absolute left-0 top-1/2 transform -translate-y-1/2 bg-orange-burnt rounded-full p-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
                 
-                <button id="next-btn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-orange-burnt rounded-full p-2 text-white">
+                <button id="next-btn" class="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 bg-orange-burnt rounded-full p-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
@@ -1740,8 +1776,8 @@
         if (menuToggle) {
             menuToggle.addEventListener('click', () => {
                 mobileMenu.classList.toggle('active');
-                // Previne scroll do body quando menu está aberto
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                // 3. Controle de scroll via classe (compatível com iOS)
+                document.body.classList.toggle('menu-open');
             });
         }
         
@@ -1749,7 +1785,8 @@
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
+                // 3. Remove classe de travamento ao fechar menu
+                document.body.classList.remove('menu-open');
             });
         });
         
@@ -1852,8 +1889,15 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         
-        let scrollAmount = 0;
-        const scrollStep = 300;
+        // 5. scrollStep dinâmico - usa largura real do item no mobile
+        let scrollStep = 300;
+        
+        if (carousel) {
+            const carouselItem = carousel.querySelector('.carousel-item');
+            if (carouselItem) {
+                scrollStep = carouselItem.offsetWidth || 300;
+            }
+        }
         
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
