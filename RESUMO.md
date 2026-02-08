@@ -25,7 +25,7 @@ Seu novo site do **Iran Ligeiro - Hybrid Training** foi criado com sucesso e est
 
 ### 3. Repositório Git
 - ✅ Inicializado
-- ✅ 2 commits criados
+- ✅ 3 commits criados
 - ✅ Configurado com seu usuário (Elisf2024)
 - ✅ Pronto para push
 
@@ -154,4 +154,4 @@ Seu site profissional está pronto! Agora é só seguir as instruções em `INST
 *Criado em: Fevereiro 2026*  
 *Usuário Git: Elisf2024*  
 *Branch: main*  
-*Commits: 2*
+*Commits: 3*
