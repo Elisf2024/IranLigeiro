@@ -727,6 +727,38 @@
                 scroll-snap-align: center;
             }
             
+            /* Aumentar brilho no mobile - evitar tela muito escura */
+            .video-background {
+                filter: brightness(1.6) contrast(1.05) !important;
+            }
+            
+            .banner::before {
+                background-color: rgba(0, 0, 0, 0.3) !important; /* Reduz overlay de 50% para 30% */
+            }
+            
+            /* Melhorar contraste do texto no mobile */
+            .banner h1,
+            .banner p,
+            .banner a {
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            }
+            
+            /* Aumentar brilho da imagem de fallback também */
+            #fallback-image {
+                filter: brightness(1.6) contrast(1.05) !important;
+            }
+            
+            /* Clarear todas as seções com vídeo background no mobile */
+            #metodo .video-background,
+            #sobre .about-video {
+                filter: brightness(1.5) contrast(1.05) !important;
+            }
+            
+            /* Clarear overlays de todas as seções no mobile */
+            #metodo.banner::before {
+                background-color: rgba(0, 0, 0, 0.4) !important;
+            }
+            
             .banner h1 {
                 font-size: 2rem !important;
                 line-height: 1.2;
