@@ -729,11 +729,11 @@
             
             /* Aumentar brilho no mobile - evitar tela muito escura */
             .video-background {
-                filter: brightness(1.6) contrast(1.05) !important;
+                filter: brightness(2.0) contrast(1.0) !important;
             }
             
             .banner::before {
-                background-color: rgba(0, 0, 0, 0.3) !important; /* Reduz overlay de 50% para 30% */
+                background-color: rgba(0, 0, 0, 0.2) !important; /* Overlay bem reduzido */
             }
             
             /* Melhorar contraste do texto no mobile */
@@ -745,18 +745,38 @@
             
             /* Aumentar brilho da imagem de fallback também */
             #fallback-image {
-                filter: brightness(1.6) contrast(1.05) !important;
+                filter: brightness(2.0) contrast(1.0) !important;
             }
             
             /* Clarear todas as seções com vídeo background no mobile */
             #metodo .video-background,
             #sobre .about-video {
-                filter: brightness(1.5) contrast(1.05) !important;
+                filter: brightness(1.8) contrast(1.0) !important;
             }
             
             /* Clarear overlays de todas as seções no mobile */
             #metodo.banner::before {
-                background-color: rgba(0, 0, 0, 0.4) !important;
+                background-color: rgba(0, 0, 0, 0.3) !important;
+            }
+            
+            /* Garantir que o conteúdo fique visível */
+            .banner-content {
+                z-index: 10 !important;
+                position: relative;
+            }
+            
+            /* Aumentar contraste dos cards */
+            .bg-zinc-900 {
+                background-color: #2a2a2a !important;
+            }
+            
+            /* Clarear backgrounds das seções */
+            .bg-black {
+                background-color: #0a0a0a !important;
+            }
+            
+            .bg-zinc-950 {
+                background-color: #1a1a1a !important;
             }
             
             .banner h1 {
