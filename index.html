@@ -98,10 +98,24 @@
         .mobile-menu {
             transform: translateY(-100%);
             transition: transform 0.3s ease-in-out;
+            z-index: 999;
         }
         
         .mobile-menu.active {
             transform: translateY(0);
+        }
+        
+        /* Garantir que o botão do menu mobile seja visível */
+        #menu-toggle {
+            display: block;
+            background: rgba(255, 107, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        @media (min-width: 768px) {
+            #menu-toggle {
+                display: none !important;
+            }
         }
         
         .before-after-container {
@@ -885,9 +899,9 @@
             </div>
             
             <!-- Menu Mobile Toggle -->
-            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none z-50 p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
         </nav>
@@ -907,13 +921,11 @@
 
     <!-- Banner Principal com Vídeo -->
     <section class="banner min-h-screen flex items-center pt-20">
-        <video class="video-background" autoplay loop muted playsinline preload="auto" webkit-playsinline>
+        <video class="video-background" autoplay loop muted playsinline preload="metadata" webkit-playsinline="true" x-webkit-airplay="allow">
             <source src="https://i.imgur.com/PtdYsDv.mp4" type="video/mp4">
-            <source src="https://i.imgur.com/PtdYsDv.webm" type="video/webm">
-            <source src="https://i.imgur.com/PtdYsDv.mov" type="video/quicktime">
         </video>
         
-        <img src="https://i.imgur.com/CcE42Pn.jpeg" alt="Background" class="video-background hidden" id="fallback-image">
+        <img src="https://i.imgur.com/CcE42Pn.jpeg" alt="Background" class="video-background" id="fallback-image" style="display: none;">
         
         <div class="container mx-auto px-4 py-20 banner-content">
             <div class="max-w-2xl">
@@ -1770,19 +1782,49 @@
             const video = document.querySelector('.video-background');
             const fallbackImage = document.getElementById('fallback-image');
             
-            // Forçar autoplay do vídeo
+            // Forçar autoplay do vídeo no mobile
             if (video) {
-                video.play().catch(function(error) {
-                    console.log('Autoplay bloqueado:', error);
-                    // Se autoplay falhar, mostrar imagem de fallback
+                // Tentar reproduzir o vídeo
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Vídeo iniciou com sucesso
+                        console.log('Vídeo reproduzindo');
+                        video.style.display = 'block';
+                        if (fallbackImage) fallbackImage.style.display = 'none';
+                    }).catch((error) => {
+                        // Autoplay bloqueado - usar imagem
+                        console.log('Autoplay bloqueado, usando imagem:', error);
+                        video.style.display = 'none';
+                        if (fallbackImage) {
+                            fallbackImage.style.display = 'block';
+                            fallbackImage.classList.remove('hidden');
+                        }
+                    });
+                }
+                
+                // Fallback em caso de erro de carregamento
+                video.addEventListener('error', function(e) {
+                    console.log('Erro ao carregar vídeo:', e);
                     video.style.display = 'none';
-                    if (fallbackImage) fallbackImage.style.display = 'block';
+                    if (fallbackImage) {
+                        fallbackImage.style.display = 'block';
+                        fallbackImage.classList.remove('hidden');
+                    }
                 });
                 
-                video.addEventListener('error', function() {
-                    video.style.display = 'none';
-                    if (fallbackImage) fallbackImage.style.display = 'block';
-                });
+                // Verificar se o vídeo está carregado após 3 segundos
+                setTimeout(() => {
+                    if (video.readyState < 3) { // HAVE_FUTURE_DATA
+                        console.log('Vídeo não carregou, usando imagem');
+                        video.style.display = 'none';
+                        if (fallbackImage) {
+                            fallbackImage.style.display = 'block';
+                            fallbackImage.classList.remove('hidden');
+                        }
+                    }
+                }, 3000);
             }
             
             const aboutVideo = document.querySelector('.about-video');
