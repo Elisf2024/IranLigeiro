@@ -2,10 +2,20 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Iran Ligeiro - Especialista em Musculação e Corrida. Método Hybrid Training para transformação física.">
     <meta name="keywords" content="Iran Ligeiro, personal trainer, musculação, corrida, hybrid training, fitness">
     <meta name="author" content="Iran Ligeiro">
+    
+    <!-- Mobile Optimization -->
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=yes">
+    
+    <!-- Performance -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
     <title>Iran Ligeiro - Especialista em Musculação e Corrida</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -648,6 +658,207 @@
         
         .service-details.hidden {
             display: none;
+        }
+        
+        /* ========== OTIMIZAÇÕES PARA MOBILE ========== */
+        @media (max-width: 768px) {
+            /* Banner Principal */
+            .banner h1 {
+                font-size: 2rem !important;
+                line-height: 1.2;
+            }
+            
+            .banner p {
+                font-size: 1rem !important;
+            }
+            
+            .banner a {
+                font-size: 1rem !important;
+                padding: 12px 24px !important;
+            }
+            
+            /* Cards de Serviços - Empilhados verticalmente */
+            .service-card-expandable {
+                margin-bottom: 1rem;
+            }
+            
+            .service-card-expandable:hover {
+                transform: none; /* Remove hover effect no mobile */
+            }
+            
+            /* Detalhes dos serviços - melhor legibilidade */
+            .service-details {
+                font-size: 0.95rem;
+            }
+            
+            .service-details h4 {
+                font-size: 1.1rem;
+            }
+            
+            .service-details ul li {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+            
+            /* Botões maiores para toque fácil */
+            button, .bg-orange-burnt {
+                min-height: 48px;
+                font-size: 1rem;
+            }
+            
+            /* Menu mobile otimizado */
+            .mobile-menu a {
+                font-size: 1.1rem;
+                padding: 16px 20px;
+                min-height: 48px;
+            }
+            
+            /* Logo menor no mobile */
+            .logo-img {
+                height: 40px;
+            }
+            
+            /* Seções com padding reduzido */
+            section {
+                padding: 60px 16px;
+            }
+            
+            /* Títulos menores no mobile */
+            h2 {
+                font-size: 1.75rem !important;
+            }
+            
+            h3 {
+                font-size: 1.25rem !important;
+            }
+            
+            /* Cards do método */
+            .method-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Destaques na corrida - scroll horizontal suave */
+            .highlights-container {
+                scroll-snap-type: x mandatory;
+                gap: 1rem;
+            }
+            
+            .highlight-card {
+                scroll-snap-align: center;
+                min-width: 280px;
+            }
+            
+            /* Cronograma semanal - compacto */
+            .day-card {
+                max-width: 100px;
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .day-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            /* Depoimentos - carrossel */
+            .testimonials-container {
+                gap: 1rem;
+            }
+            
+            .testimonial-card-wrapper {
+                min-width: 85%;
+            }
+            
+            /* Team cards */
+            .team-card {
+                margin-bottom: 1rem;
+            }
+            
+            /* Carrossel de resultados */
+            .carousel-item {
+                padding: 0.5rem;
+            }
+            
+            /* Contato - ícones maiores */
+            .contact-item {
+                padding: 1.25rem;
+            }
+            
+            .social-icon {
+                width: 3rem;
+                height: 3rem;
+            }
+            
+            /* WhatsApp button - destacado */
+            .whatsapp-btn {
+                width: 100%;
+                font-size: 1rem;
+                padding: 16px 24px;
+            }
+            
+            /* Video backgrounds - otimizado */
+            .video-background {
+                object-position: center;
+            }
+            
+            /* Garantir que nada quebre no mobile */
+            * {
+                max-width: 100%;
+            }
+            
+            img {
+                height: auto;
+            }
+        }
+        
+        /* Ajustes para telas muito pequenas (< 375px) */
+        @media (max-width: 375px) {
+            .banner h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            .service-card-expandable h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            .day-card {
+                max-width: 80px;
+                padding: 8px 6px;
+                font-size: 0.75rem;
+            }
+            
+            button, .bg-orange-burnt {
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
+        }
+        
+        /* Landscape mobile (celular deitado) */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .banner {
+                min-height: 100vh;
+            }
+            
+            .banner h1 {
+                font-size: 1.5rem !important;
+            }
+            
+            .mobile-menu {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
+        
+        /* Touch-friendly - aumenta área de toque */
+        @media (hover: none) and (pointer: coarse) {
+            a, button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .navbar-menu a {
+                padding: 12px 20px;
+            }
         }
     </style>
 </head>
@@ -1510,14 +1721,19 @@
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-        });
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                // Previne scroll do body quando menu está aberto
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+        }
         
-        const mobileLinks = mobileMenu.querySelectorAll('a');
+        const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
         
@@ -1525,6 +1741,7 @@
         function toggleService(serviceId) {
             const detailsElement = document.getElementById(serviceId + '-details');
             const allDetails = document.querySelectorAll('.service-details');
+            const clickedCard = detailsElement.closest('.service-card-expandable');
             
             // Fechar todos os outros cards
             allDetails.forEach(detail => {
@@ -1534,7 +1751,15 @@
             });
             
             // Toggle do card clicado
+            const isHidden = detailsElement.classList.contains('hidden');
             detailsElement.classList.toggle('hidden');
+            
+            // Scroll suave até o card no mobile
+            if (isHidden && window.innerWidth < 768) {
+                setTimeout(() => {
+                    clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -1574,19 +1799,53 @@
         let scrollAmount = 0;
         const scrollStep = 300;
         
-        nextBtn.addEventListener('click', () => {
-            carousel.scrollBy({
-                left: scrollStep,
-                behavior: 'smooth'
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({
+                    left: scrollStep,
+                    behavior: 'smooth'
+                });
             });
-        });
+        }
         
-        prevBtn.addEventListener('click', () => {
-            carousel.scrollBy({
-                left: -scrollStep,
-                behavior: 'smooth'
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({
+                    left: -scrollStep,
+                    behavior: 'smooth'
+                });
             });
-        });
+        }
+        
+        // Touch gestures para carrossel no mobile
+        if (carousel) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            carousel.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        // Swipe left - próximo
+                        carousel.scrollBy({ left: scrollStep, behavior: 'smooth' });
+                    } else {
+                        // Swipe right - anterior
+                        carousel.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+                    }
+                }
+            }
+        }
     </script>
 </body>
 </html>
